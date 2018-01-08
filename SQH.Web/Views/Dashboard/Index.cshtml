@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model SQH.Entities.Models.DashboardModel
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="well well-sm">
+                <form class="form-horizontal" action="" method="post">
+                    <fieldset>
+                        <legend class="text-center">Apontador de Horas</legend>
+
+                        <div class="form-group">
+                            <span class="col-md-12 text-danger text-center" id="spanMsg"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="name">Período</label>
+                            <div class="col-md-9">
+                                <input asp-for="periodo" id="dtperiodo" type="text" class="form-control formata-date-picker" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="periodo" class="text-danger"></span>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="name">Cód Colaborador</label>
+                            <div class="col-md-9">
+                                <input asp-for="idColaborador" id="CodColaborador" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="email">Projeto</label>
+                            <div class="col-md-9">
+                                <select id="ddlprojeto" asp-for="idProjeto" class="form-control"></select>
+                                <input asp-for="textoProjeto" id="txtTextoProjeto" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="idProjeto" class="text-danger"></span>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="name">Gerente</label>
+                            <div class="col-md-9">
+                                <input id="txtGerente" disabled="disabled" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group hidden" id="divsubprojeto">
+                            <label class="col-md-3 control-label" for="email">Sub Projeto</label>
+                            <div class="col-md-9">
+                                <select id="ddlsubprojeto" asp-for="idSubProjeto" class="form-control"></select>
+                                <input asp-for="textoSubProjeto" id="txtTextoSubProjeto" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="idSubProjeto" class="text-danger"></span>
+
+                        <div class="form-group hidden" id="divpapel">
+                            <label class="col-md-3 control-label" for="email">Papel</label>
+                            <div class="col-md-9">
+                                <select id="ddlpapel" asp-for="idPapel" class="form-control"></select>
+                                <input asp-for="textoPapel" id="txtTextoPapel" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="idPapel" class="text-danger"></span>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="email">Motivos</label>
+                            <div class="col-md-9">
+                                <select id="ddlmotivo" asp-for="idMotivo" class="form-control"></select>
+                                <input asp-for="textoMotivo" id="txtTextoMotivo" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="idMotivo" class="text-danger"></span>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="message">Descrição da Atividade</label>
+                            <div class="col-md-9">
+                                <textarea asp-for="descricao" class="form-control" id="message" placeholder="Digite a descrção da atividade..." rows="5"></textarea>
+                            </div>
+                        </div>
+                        <span asp-validation-for="descricao" class="text-danger"></span>
+
+                        <div class="form-group">
+                            <div class="col-md-12 text-right">
+                                <button type="submit" class="btn btn-primary btn-sm">Enviar</button>
+                                <button type="reset" class="btn btn-info btn-sm">Limpar</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="well well-sm">
+                <fieldset>
+                    <legend class="text-center">Resultado Apontamento</legend>
+                </fieldset>
+                @if (Model.resposta.Count > 0)
+                {
+                    <div class="error-notice">
+                        @foreach (var item in Model.resposta)
+                        {
+                            if (item.sucesso)
+                            {
+                                <div class="oaerror success">
+                                    <strong>@item.data.ToString("dd/MM/yyyy")</strong> @item.mensagem
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="oaerror danger">
+                                    <strong>@item.data.ToString("dd/MM/yyyy")</strong> @item.mensagem
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
